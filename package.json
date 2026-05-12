@@ -1,0 +1,24 @@
+{
+  "name": "deskly",
+  "version": "1.0.0",
+  "description": "A support desk that ships with SLA policies, kanban triage, canned responses and CSAT reporting. Dependency-free and easy to embed in an existing product.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Arvion Technologies <hello@arviontech.net> (https://arviontech.net)",
+  "homepage": "https://arvion-technology.github.io/labs/demos/deskly/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvion-technology/deskly.git"
+  },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node scripts/serve.mjs . 4173",
+    "shot": "node scripts/shot.mjs 1440 900 docs/screenshot.png",
+    "shot:2": "node scripts/shot.mjs 1440 900 docs/screenshot-2.png #kanban",
+    "verify": "node --test test/ && node scripts/serve-check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
