@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <title>Deskly — a support desk with an honest SLA clock</title>
+  <title>Deskly | a support desk with an honest SLA clock</title>
   <meta name="description" content="Helpdesk demo with a three-pane inbox, business-hours SLA countdowns that pause on the customer, a ticket state machine, kanban view and CSAT reporting." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 9 L91 91 H73 L50 52 L27 91 H9 Z' fill='%23f5c26b'/><circle cx='50' cy='31' r='6.6' fill='%230b0f1a'/><path d='M50 52 L67 90 H33 Z' fill='%230b0f1a'/></svg>" />
   <link rel="stylesheet" href="arvion.css" />
@@ -26,7 +26,7 @@
       </a>
 
       <div class="nav-label">Workspace</div>
-      <a class="nav-item" href="#inbox" data-view="inbox"><span class="nav-dot"></span>Inbox<span class="badge" id="nav-inbox-count" style="margin-left:auto;padding:1px 7px">–</span></a>
+      <a class="nav-item" href="#inbox" data-view="inbox"><span class="nav-dot"></span>Inbox<span class="badge" id="nav-inbox-count" style="margin-left:auto;padding:1px 7px">, </span></a>
       <a class="nav-item" href="#kanban" data-view="kanban"><span class="nav-dot"></span>Kanban</a>
       <a class="nav-item" href="#csat" data-view="csat"><span class="nav-dot"></span>CSAT report</a>
       <a class="nav-item" href="#settings" data-view="settings"><span class="nav-dot"></span>SLA settings</a>
@@ -58,10 +58,10 @@
       <header class="topbar">
         <div class="row" style="gap:10px">
           <span class="badge blue">Acme Support</span>
-          <span class="small muted" id="topbar-meta">–</span>
+          <span class="small muted" id="topbar-meta">, </span>
         </div>
         <span class="spacer"></span>
-        <span class="badge red" id="topbar-sla"><span class="dot"></span><span id="topbar-sla-text">–</span></span>
+        <span class="badge red" id="topbar-sla"><span class="dot"></span><span id="topbar-sla-text">, </span></span>
         <span class="badge green"><span class="dot pulse"></span>all systems</span>
         <div class="row" style="gap:8px">
           <div class="avatar">AK</div>
@@ -98,7 +98,7 @@
               <div class="list-head">
                 <div class="row" style="gap:8px">
                   <h2 id="list-title">Inbox</h2>
-                  <span class="badge" id="list-count">–</span>
+                  <span class="badge" id="list-count">, </span>
                   <span class="spacer"></span>
                   <select class="select" id="sort-select" style="width:132px" aria-label="Sort tickets">
                     <option value="queue">Queue score</option>
@@ -140,7 +140,7 @@
               <p class="lede">Six responses from seven eligible tickets. The denominator is on every card because a satisfaction score without a response rate is a story, not a measurement.</p>
             </div>
             <span class="spacer"></span>
-            <span class="badge" id="csat-window">–</span>
+            <span class="badge" id="csat-window">, </span>
           </div>
           <div class="grid grid-4" id="csat-kpis" style="margin-bottom:16px"></div>
           <div class="grid" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);margin-bottom:16px">
@@ -149,7 +149,7 @@
               <div id="csat-trend"></div>
             </div>
             <div class="card">
-              <div class="card-head"><div class="card-title">Response mix</div><span class="spacer"></span><span class="badge gold" id="csat-score">–</span></div>
+              <div class="card-head"><div class="card-title">Response mix</div><span class="spacer"></span><span class="badge gold" id="csat-score">, </span></div>
               <div class="row" style="justify-content:center;gap:20px">
                 <div id="csat-donut"></div>
                 <div class="col" id="csat-legend" style="gap:10px;font-size:12.5px;min-width:0;flex:1"></div>
@@ -189,7 +189,7 @@
             </div>
             <div class="col" style="gap:16px">
               <div class="card">
-                <div class="card-head"><div class="card-title">Business calendar</div><span class="spacer"></span><span class="badge blue" id="calendar-offset">–</span></div>
+                <div class="card-head"><div class="card-title">Business calendar</div><span class="spacer"></span><span class="badge blue" id="calendar-offset">, </span></div>
                 <div id="hours-table"></div>
                 <div class="divider"></div>
                 <div class="small muted" id="holiday-list"></div>

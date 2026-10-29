@@ -37,7 +37,7 @@ test("a calendar validates its windows instead of trusting input", () => {
 });
 
 test("business minutes count partial days, lunch breaks and weekends", () => {
-  assert.equal(businessMinutesBetween(MONDAY, MONDAY + 8 * 60 * MINUTE, cal()), 480, "09:00–17:00");
+  assert.equal(businessMinutesBetween(MONDAY, MONDAY + 8 * 60 * MINUTE, cal()), 480, "09:00-17:00");
   assert.equal(businessMinutesBetween(MONDAY, MONDAY + 9 * 60 * MINUTE, cal()), 540, "closes at 18:00");
   assert.equal(businessMinutesBetween(MONDAY + 120 * MINUTE, MONDAY + 5 * 60 * MINUTE, lunch), 120, "two hours, splitting the lunch break");
   const friday5pm = Date.UTC(2026, 9, 30, 17, 0);

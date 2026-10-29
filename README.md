@@ -2,11 +2,11 @@
 <img src="docs/demo.gif" alt="Deskly three-pane inbox with SLA countdowns and a support conversation" width="100%" />
 </div>
 
-<sub>Recorded from the live demo — <a href="docs/demo.mp4">MP4</a> · <a href="docs/screenshot.png">static frame</a></sub>
+<sub>Recorded from the live demo, <a href="docs/demo.mp4">MP4</a> · <a href="docs/screenshot.png">static frame</a></sub>
 
 # Deskly
 
-A support desk in the browser: a three-pane inbox, a ticket state machine, SLA countdowns in business minutes, a kanban board and a CSAT report. No dependencies and no build step — the whole app is static files plus a small framework-free engine in `src/`.
+A support desk in the browser: a three-pane inbox, a ticket state machine, SLA countdowns in business minutes, a kanban board and a CSAT report. No dependencies and no build step, the whole app is static files plus a small framework-free engine in `src/`.
 
 [**Open the live demo**](https://arvion-technology.github.io/labs/demos/deskly/) · [MIT](LICENSE)
 
@@ -16,12 +16,12 @@ The demo seeds seventeen tickets for ten fictional customers and four agents, in
 
 ## What it does
 
-- **Inbox** — saved views with counts (Assigned to me, Unassigned, Urgent, Breached, Paused, Resolved), queue-score sorting, search and `j`/`k` navigation.
-- **Conversation** — the full customer timeline with internal notes marked as team-only, a canned-reply picker, public replies and notes.
-- **SLA panel** — first-response and resolution countdowns, each with the target, elapsed business time, progress and the pause total.
-- **Kanban** — the same tickets grouped by state; columns follow the state machine rather than an arbitrary list.
-- **CSAT report** — average, response rate, satisfaction split, weekly trend, per-agent table and the comments worth reading.
-- **Settings** — the policy table, the business calendar and holidays, straight from the same engine the inbox uses.
+- **Inbox**: saved views with counts (Assigned to me, Unassigned, Urgent, Breached, Paused, Resolved), queue-score sorting, search and `j`/`k` navigation.
+- **Conversation**: the full customer timeline with internal notes marked as team-only, a canned-reply picker, public replies and notes.
+- **SLA panel**: first-response and resolution countdowns, each with the target, elapsed business time, progress and the pause total.
+- **Kanban**: the same tickets grouped by state; columns follow the state machine rather than an arbitrary list.
+- **CSAT report**: average, response rate, satisfaction split, weekly trend, per-agent table and the comments worth reading.
+- **Settings**: the policy table, the business calendar and holidays, straight from the same engine the inbox uses.
 
 ## Screenshots
 
@@ -57,15 +57,15 @@ npm run demo      # http://localhost:4173
 
 ## How it works
 
-**The clock counts business minutes, not wall-clock minutes.** `businessMinutesBetween(start, end, calendar)` walks the days between two instants, intersects each day with the support windows, and skips weekends and holidays. At 17:50 on Friday, an urgent ticket with a 30-minute first-response target has 10 minutes left today; the other 20 minutes are consumed from 08:00 on Monday, so the real deadline is 08:20 Monday. That is the only model in which an after-hours queue is honest — a wall-clock timer punishes agents for not working on Sunday.
+**The clock counts business minutes, not wall-clock minutes.** `businessMinutesBetween(start, end, calendar)` walks the days between two instants, intersects each day with the support windows, and skips weekends and holidays. At 17:50 on Friday, an urgent ticket with a 30-minute first-response target has 10 minutes left today; the other 20 minutes are consumed from 08:00 on Monday, so the real deadline is 08:20 Monday. That is the only model in which an after-hours queue is honest, a wall-clock timer punishes agents for not working on Sunday.
 
 `addBusinessMinutes(start, minutes, calendar)` runs the same walk in the other direction and returns an actual deadline instant. Both functions are pure and take the calendar as an argument, so the tests can define a two-window day with a lunch break or a one-week holiday and get exact answers.
 
 **Pausing is reconstructed, not stored twice.** The ticket's `history` is the source of truth. Every entry into `pending_customer` opens a pause window; the next non-pause status closes it; an open window at `now` is still running. `activeBusinessMinutes()` subtracts the business minutes inside those windows from the total. That is why a reply can pause a 4-hour resolution target with 35 minutes used and keep showing 35 minutes used until the customer answers. If a paused ticket is resolved by an outbound follow-up, the pause closes and the clock resumes for the remainder. Storing a `pausedSeconds` counter instead would drift the first time an edit or an import rewrote history.
 
-**Status is a state table.** `TRANSITIONS` maps state → event → next state. A public reply moves `open` to `pending_customer`; resolving closes the clock; a customer reply reopens it; a closed ticket cannot receive a reply until it is reopened. The UI does not check legality separately — it calls `canTransition()` to show the buttons and `transition()` to apply them, and an illegal move throws. That is why the reply box is disabled on a resolved ticket instead of quietly accepting a message.
+**Status is a state table.** `TRANSITIONS` maps state → event → next state. A public reply moves `open` to `pending_customer`; resolving closes the clock; a customer reply reopens it; a closed ticket cannot receive a reply until it is reopened. The UI does not check legality separately, it calls `canTransition()` to show the buttons and `transition()` to apply them, and an illegal move throws. That is why the reply box is disabled on a resolved ticket instead of quietly accepting a message.
 
-**Queue order is explicit.** `priorityScore` is priority rank × 100 + waiting business minutes (capped at 480) + 200 for a breach + 60 for being close + 30 when the customer is waiting on us + 40 for a VIP. Every weight is a named constant; there is no opaque sort. Breached tickets therefore rise above healthy ones, and a three-day-old normal ticket can outrank a fresh high one — which is usually the behaviour a support lead wants.
+**Queue order is explicit.** `priorityScore` is priority rank × 100 + waiting business minutes (capped at 480) + 200 for a breach + 60 for being close + 30 when the customer is waiting on us + 40 for a VIP. Every weight is a named constant; there is no opaque sort. Breached tickets therefore rise above healthy ones, and a three-day-old normal ticket can outrank a fresh high one, which is usually the behaviour a support lead wants.
 
 **CSAT is reported with its denominator.** Only resolved or closed tickets are eligible, and only those with a survey response count toward the average. `csatSummary` returns `responses`, `eligible` and `rate` next to the average, because "4.8 from six replies out of 300 tickets" is not a 4.8-star desk. Weeks without a response are `null` in the trend and are omitted from the line chart rather than plotted as zero.
 
@@ -77,9 +77,9 @@ npm test
 
 35 tests on `node:test`:
 
-- `test/sla.test.js` — calendar validation, partial days and lunch breaks, weekend and holiday skipping, forward and backward business-minute arithmetic, pause reconstruction, breach and warning boundaries, stopped clocks, custom policies and duration labels.
-- `test/tickets.test.js` — every legal transition plus refused ones, history ordering, message validation, priority scoring weights, queue ordering, all saved views, free-text search, kanban grouping and queue counts.
-- `test/csat.test.js` — empty surveys returning `null` rather than zero, response rates, distributions, per-agent averages, weekly bucketing and low-score-first comments, plus an integrity test over the seeded workspace.
+- `test/sla.test.js`: calendar validation, partial days and lunch breaks, weekend and holiday skipping, forward and backward business-minute arithmetic, pause reconstruction, breach and warning boundaries, stopped clocks, custom policies and duration labels.
+- `test/tickets.test.js`: every legal transition plus refused ones, history ordering, message validation, priority scoring weights, queue ordering, all saved views, free-text search, kanban grouping and queue counts.
+- `test/csat.test.js`: empty surveys returning `null` rather than zero, response rates, distributions, per-agent averages, weekly bucketing and low-score-first comments, plus an integrity test over the seeded workspace.
 
 The demo also ships a static check:
 

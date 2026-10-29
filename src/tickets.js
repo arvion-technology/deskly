@@ -2,8 +2,8 @@
  * Ticket state machine, queue ranking and saved views.
  *
  * The state machine is a table, not a pile of `if`s. That matters because the
- * same transitions are triggered from three places — the reply box, the status
- * menu and the kanban board — and each of them must be refused in exactly the
+ * same transitions are triggered from three places, the reply box, the status
+ * menu and the kanban board, and each of them must be refused in exactly the
  * same cases. Illegal transitions throw; the UI catches and shows why.
  */
 
@@ -121,7 +121,7 @@ export function addMessage(ticket, message) {
 /**
  * Queue score: priority dominates, then how long the ticket has waited in
  * business time, then SLA pressure, then whether the customer is a VIP. It is
- * deliberately not a black box — every weight is a named constant.
+ * deliberately not a black box, every weight is a named constant.
  */
 export const QUEUE_WEIGHTS = Object.freeze({
   priority: 100,

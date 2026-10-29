@@ -1,4 +1,4 @@
-// Deskly — demo application.
+// Deskly, demo application.
 // Every SLA number, state transition and CSAT figure is computed by ../src/*.js.
 // This file builds the three-pane inbox, the kanban board and the reports.
 import { PRIORITIES, STATES } from "../src/model.js";
@@ -41,7 +41,7 @@ function persist() {
 
 function customerById(id) {
   return DB.customers.find((customer) => customer.id === id)
-    || { name: "Unknown", company: "—", plan: "—", email: "", tier: "Standard" };
+    || { name: "Unknown", company: ", ", plan: ", ", email: "", tier: "Standard" };
 }
 
 function agentById(id) {
@@ -114,7 +114,7 @@ function slaCard(label, target, slaState) {
       el("span", { text: `target ${formatMinutes(target.target)}` })),
     el("div", { class: "progress" }, el("i", { style: `width:${Math.round(Math.min(1, target.progress) * 100)}%` })),
     el("div", { class: "small muted", style: "margin-top:6px;font-size:10.5px", text: target.met
-      ? `met in ${formatMinutes(target.elapsed)}${target.breached ? " — late" : ""}`
+      ? `met in ${formatMinutes(target.elapsed)}${target.breached ? ", late" : ""}`
       : `${formatMinutes(target.elapsed)} used` }));
 }
 
@@ -146,7 +146,7 @@ function renderRail() {
       ["Breached", summary.breached],
       ["At risk", summary.warning],
       ["Paused", summary.paused],
-      ["Median first reply", summary.medianFirstResponseMinutes === null ? "—" : formatMinutes(summary.medianFirstResponseMinutes)],
+      ["Median first reply", summary.medianFirstResponseMinutes === null ? ", " : formatMinutes(summary.medianFirstResponseMinutes)],
     ].map(([label, value]) => el("div", { class: "rail-summary-row" },
       el("span", { text: label }),
       el("span", { class: "spacer" }),
@@ -474,10 +474,10 @@ function renderCsat() {
   $("#csat-window").textContent = `last 6 weeks · ${summary.responses} responses`;
   $("#csat-kpis").replaceChildren(
     ...[
-      ["Average CSAT", summary.average === null ? "—" : summary.average.toFixed(2), "out of 5", "gold"],
+      ["Average CSAT", summary.average === null ? ", " : summary.average.toFixed(2), "out of 5", "gold"],
       ["Responses", `${summary.responses} / ${summary.eligible}`, `${(summary.rate * 100).toFixed(0)}% response rate`, "blue"],
-      ["Satisfied", summary.satisfiedRate === null ? "—" : `${(summary.satisfiedRate * 100).toFixed(0)}%`, "scores 4 and 5", "green"],
-      ["Detractors", String(summary.detractors), "scores 1–3", "gold"],
+      ["Satisfied", summary.satisfiedRate === null ? ", " : `${(summary.satisfiedRate * 100).toFixed(0)}%`, "scores 4 and 5", "green"],
+      ["Detractors", String(summary.detractors), "scores 1-3", "gold"],
     ].map(([label, value, sub, tone]) => el("div", { class: "card" },
       el("div", { class: "stat" },
         el("div", { class: "stat-label", text: label }),
@@ -507,13 +507,13 @@ function renderCsat() {
     ],
     size: 148,
     thickness: 18,
-    centerValue: summary.average === null ? "—" : summary.average.toFixed(1),
+    centerValue: summary.average === null ? ", " : summary.average.toFixed(1),
     centerLabel: "average",
   }));
   $("#csat-legend").replaceChildren(...[
-    ["Satisfied (4–5)", satisfied, colours.satisfied],
+    ["Satisfied (4-5)", satisfied, colours.satisfied],
     ["Neutral (3)", neutral, colours.neutral],
-    ["Unsatisfied (1–2)", unsatisfied, colours.unsatisfied],
+    ["Unsatisfied (1-2)", unsatisfied, colours.unsatisfied],
   ].map(([label, count, colour]) => el("div", { class: "row", style: "gap:8px" },
     el("i", { style: `width:8px;height:8px;border-radius:2px;background:${colour}` }),
     el("span", { text: label }),
@@ -538,8 +538,8 @@ function renderCsat() {
       },
       { label: "Resolved", align: "right", render: (row) => String(row.resolved) },
       { label: "Responses", align: "right", render: (row) => String(row.responses) },
-      { label: "Average", align: "right", render: (row) => (row.average === null ? "—" : row.average.toFixed(2)) },
-      { label: "Satisfied", align: "right", render: (row) => (row.satisfiedRate === null ? "—" : `${(row.satisfiedRate * 100).toFixed(0)}%`) },
+      { label: "Average", align: "right", render: (row) => (row.average === null ? ", " : row.average.toFixed(2)) },
+      { label: "Satisfied", align: "right", render: (row) => (row.satisfiedRate === null ? ", " : `${(row.satisfiedRate * 100).toFixed(0)}%`) },
     ],
     rows: agents,
   }));
@@ -585,7 +585,7 @@ function renderSettings() {
     const windows = calendar().hours[day] || [];
     return el("div", { class: "calendar-row" },
       el("span", { class: "day", text: DAY_NAMES[day] }),
-      el("span", { class: "hours", text: windows.length ? windows.map(([open, close]) => `${minutesToClock(open)}–${minutesToClock(close)}`).join(", ") : "closed" }));
+      el("span", { class: "hours", text: windows.length ? windows.map(([open, close]) => `${minutesToClock(open)}, ${minutesToClock(close)}`).join(", ") : "closed" }));
   }));
   $("#holiday-list").textContent = `Closed holidays: ${calendar().holidays.length
     ? calendar().holidays.join(", ")

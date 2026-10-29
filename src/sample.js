@@ -41,7 +41,7 @@ export const CANNED_REPLIES = Object.freeze([
   {
     id: "canned-bug",
     label: "Bug · logged with engineering",
-    body: "Thank you for the reproduction steps — that is enough for us to dig in. I have logged this with engineering as a high-priority defect and attached your account id. I will update you as soon as there is a fix estimate, even if that estimate is \"not this week\".",
+    body: "Thank you for the reproduction steps, that is enough for us to dig in. I have logged this with engineering as a high-priority defect and attached your account id. I will update you as soon as there is a fix estimate, even if that estimate is \"not this week\".",
   },
   {
     id: "canned-onboarding",
@@ -56,11 +56,11 @@ export const CANNED_REPLIES = Object.freeze([
   {
     id: "canned-refund",
     label: "Billing · refund timeline",
-    body: "The refund was submitted to the card network today. Card refunds usually appear within 5–10 business days, but the exact date is set by the issuing bank, not by us. I have attached the refund reference so your customer can quote it if they call their bank.",
+    body: "The refund was submitted to the card network today. Card refunds usually appear within 5-10 business days, but the exact date is set by the issuing bank, not by us. I have attached the refund reference so your customer can quote it if they call their bank.",
   },
 ]);
 
-/** Extended support hours: 08:00–22:00 weekdays, shorter at the weekend. */
+/** Extended support hours: 08:00-22:00 weekdays, shorter at the weekend. */
 const SAMPLE_HOURS = {
   1: [[480, 1320]],
   2: [[480, 1320]],
@@ -81,7 +81,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 2]],
     messages: [
       { kind: "customer", after: 0, body: "A refund we processed on 2 October is still not on our customer's statement. The gateway shows it settled. What should we tell their bank?" },
-      { kind: "note", after: 30, body: "Checked gateway logs: refund RF-88213 settled at 14:06. The card network reference is missing from the export — asking our payments team for the ARN." },
+      { kind: "note", after: 30, body: "Checked gateway logs: refund RF-88213 settled at 14:06. The card network reference is missing from the export, asking our payments team for the ARN." },
     ],
   },
   {
@@ -134,7 +134,7 @@ const TICKETS = [
     messages: [
       { kind: "customer", after: 0, body: "Invoice INV-2026-0047 shows 13% tax on a line that should be zero-rated. Can you reissue it?" },
       { kind: "reply", after: 180, body: "You are right: the line was created on an export invoice and inherited the domestic default. I have corrected the invoice and will reissue it after you confirm the billing entity." },
-      { kind: "customer", after: 240, body: "Confirmed — the billing entity is the same one. Please reissue with the same number plus a suffix." },
+      { kind: "customer", after: 240, body: "Confirmed, the billing entity is the same one. Please reissue with the same number plus a suffix." },
     ],
   },
   {
@@ -144,7 +144,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 8], ["pending_customer", 240], ["open", 600]],
     messages: [
       { kind: "customer", after: 0, body: "Any plans for a dark theme? Our analysts work late and the dashboard is very bright." },
-      { kind: "reply", after: 240, body: "It is on the roadmap but I cannot promise a release. There is a browser-level workaround (forced dark) that mostly works on the charts — I can send the flags." },
+      { kind: "reply", after: 240, body: "It is on the roadmap but I cannot promise a release. There is a browser-level workaround (forced dark) that mostly works on the charts, I can send the flags." },
       { kind: "customer", after: 600, body: "Forced dark breaks the legend colours. I will wait for the real thing, just wanted to add another vote." },
     ],
   },
@@ -155,7 +155,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 2], ["resolved", 150]],
     messages: [
       { kind: "customer", after: 0, body: "Three reset attempts, no email, including spam. Our mail provider says nothing arrived." },
-      { kind: "reply", after: 20, body: "Your domain has a DMARC reject policy and our reset sender was misaligned. I have triggered the reset from the corrected sender — it should arrive within two minutes." },
+      { kind: "reply", after: 20, body: "Your domain has a DMARC reject policy and our reset sender was misaligned. I have triggered the reset from the corrected sender, it should arrive within two minutes." },
       { kind: "customer", after: 130, body: "Arrived, thank you. We should fix the alignment properly though." },
       { kind: "note", after: 140, body: "Opened EMAIL-88 for the DMARC alignment fix; not blocking this ticket." },
     ],
@@ -181,7 +181,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 3], ["resolved", 500], ["closed", 560]],
     messages: [
       { kind: "customer", after: 0, body: "Our finance address changed. Can I update where invoices are sent without changing the login email?" },
-      { kind: "reply", after: 60, body: "Yes — Billing → Invoice recipients is separate from the login email. Add the new address there and remove the old one; the next invoice will use it." },
+      { kind: "reply", after: 60, body: "Yes, Billing → Invoice recipients is separate from the login email. Add the new address there and remove the old one; the next invoice will use it." },
     ],
     csat: { score: 3, after: 620, comment: "Answer was right but it took most of a day." },
   },
@@ -212,7 +212,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 7]],
     messages: [
       { kind: "customer", after: 0, body: "Every export over roughly 50,000 rows fails with a gateway timeout after 30 seconds. Smaller exports work." },
-      { kind: "note", after: 25, body: "Reproduced with 60k rows. The export runs synchronously in the request. Needs the async job path — not a support fix." },
+      { kind: "note", after: 25, body: "Reproduced with 60k rows. The export runs synchronously in the request. Needs the async job path, not a support fix." },
     ],
   },
   {
@@ -221,7 +221,7 @@ const TICKETS = [
     channel: "email", tags: ["feature request", "workflow"], createdMin: 4320,
     history: [["new", 0], ["open", 6], ["pending_customer", 90], ["open", 200], ["pending_engineering", 320]],
     messages: [
-      { kind: "customer", after: 0, body: "Following up on the bulk tagging request — is this planned for this quarter?" },
+      { kind: "customer", after: 0, body: "Following up on the bulk tagging request, is this planned for this quarter?" },
       { kind: "reply", after: 90, body: "Not this quarter, but the workflow team is scoping it. I have linked your workspace to the request so you will get an update if it moves." },
       { kind: "customer", after: 200, body: "Understood. One more thing: can tags be renamed without detaching them?" },
       { kind: "note", after: 320, body: "Moved to engineering for the rename question specifically; it is a data model issue, not a UI one." },
@@ -234,7 +234,7 @@ const TICKETS = [
     history: [["new", 0], ["open", 4], ["pending_customer", 30], ["open", 90], ["resolved", 420]],
     messages: [
       { kind: "customer", after: 0, body: "After the DST change, every TOTP code is rejected as expired. Our whole team is locked out." },
-      { kind: "reply", after: 30, body: "The code window is being calculated in local time instead of UTC, so the server sees codes an hour early. I have widened the acceptance window for your workspace while we ship a fix — try a fresh code now." },
+      { kind: "reply", after: 30, body: "The code window is being calculated in local time instead of UTC, so the server sees codes an hour early. I have widened the acceptance window for your workspace while we ship a fix, try a fresh code now." },
       { kind: "customer", after: 90, body: "Working. Please do not forget the permanent fix; widened windows are a security trade-off." },
       { kind: "note", after: 200, body: "Fix released in 2.14.1. Window narrowed back to ±1 step on the next sign-in." },
     ],
@@ -331,7 +331,7 @@ export function buildSampleData({ now = Date.now() } = {}) {
     tickets: TICKETS.map((template) => buildTicket(template, now)),
     meta: {
       generatedAt: now,
-      label: "Sample workspace — 17 tickets for 10 fictional customers",
+      label: "Sample workspace, 17 tickets for 10 fictional customers",
     },
   };
 }

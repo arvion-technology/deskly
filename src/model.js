@@ -1,6 +1,6 @@
 /**
  * Shared vocabulary for the helpdesk: priorities, statuses, SLA policies and
- * the two facts about a ticket that everything else derives from — when an
+ * the two facts about a ticket that everything else derives from, when an
  * agent first replied publicly, and when the ticket was resolved.
  */
 
@@ -70,7 +70,7 @@ export function resolvedAt(ticket) {
   return entry ? entry.at : null;
 }
 
-/** Public messages only — what the customer actually saw. */
+/** Public messages only, what the customer actually saw. */
 export function publicMessages(ticket) {
   return (ticket.messages || [])
     .filter((message) => message.kind !== "note")

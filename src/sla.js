@@ -204,7 +204,7 @@ export function formatMinutes(minutes) {
 
 /** "42m left", "1h 5m over", or "paused". */
 export function countdownLabel(target) {
-  if (!target) return "—";
+  if (!target) return ", ";
   if (target.paused) return "paused";
   if (target.met) {
     return target.breached ? `met ${formatMinutes(target.elapsed - target.target)} late` : "met";
